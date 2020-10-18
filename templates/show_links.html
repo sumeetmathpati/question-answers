@@ -1,0 +1,35 @@
+{% macro show_links(users) %}
+<div class="w3-content" style="max-width: 1000px;">
+    <a href="{{ url_for('index') }}" class="w3-bar-item w3-button w3-large">Q&A</a>
+
+    <!-- User is logged in -->
+    {% if user %}
+
+    <!-- If user is not admin and expert -->
+    {% if not user['admin'] and not user['expert'] %}
+
+    <a href="{{ url_for('ask') }}" class="w3-bar-item w3-button w3-large">Ask question</a>
+
+    {% else %}
+
+    <!-- If user is expert -->
+    {% if user['expert'] %}
+    <a href="{{ url_for('unanswered') }}" class="w3-bar-item w3-button w3-large">Answer questions</a>
+    {% endif %}
+    <!-- If user is admin -->
+    {% if user['admin'] %}
+    <a href="{{ url_for('users') }}" class="w3-bar-item w3-button w3-large">User setup</a>
+    {% endif %}
+
+    {% endif %}
+
+    <a href="{{ url_for('logout') }}" class="w3-bar-item w3-button w3-large w3-right">Logout</a>
+
+    <!-- User not logged in -->
+    {% else %}
+    <a href="{{ url_for('login') }}" class="w3-bar-item w3-button w3-large w3-right">Login</a>
+    <a href="{{ url_for('register') }}" class="w3-bar-item w3-button w3-large w3-right">Register</a>
+
+    {% endif %}
+</div>
+{% endmacro %}

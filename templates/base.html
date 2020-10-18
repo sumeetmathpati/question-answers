@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %} | QA</title>
+
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+</head>
+
+<body class="w3-dark-gray">
+
+    <!-- Navbar -->
+    <div class="w3-bar w3-center w3-border w3-light-grey">
+        {% block nav %}{% endblock %}
+    </div>
+
+    <!-- Page content -->
+    <div id="page-content" class="w3-content " style="margin-top: 60px; max-width: 900px;">
+
+        {% block page_content %}{% endblock %}
+        
+    </div>
+
+
+
+</body>
+
+</html>

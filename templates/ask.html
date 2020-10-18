@@ -1,81 +1,34 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "base.html" %}
+{% from "show_links.html" import show_links %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ask | QA</title>
+{% block title %}
+Register
+{% endblock %}
 
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-</head>
+{% block nav %}
+{{ show_links(user) }}
+{% endblock %}
 
-<body class="w3-dark-gray">
+{% block page_content %}
+<div class="w3-border-bottom">
+    <h1>Ask A Question</h1>
+</div>
+<br>
+<div class="w3-card-4 w3-padding w3-margin-bottom w3-light-gray">
+    <form method="POST" accept="{{ url_for('ask') }}">
+        <p><label>Question</label></p>
+        <textarea class="w3-input w3-border" rows="4" name="question" style="width: 100%;"></textarea>
 
-    <!-- Navbar -->
-    <div class="w3-bar w3-center w3-border w3-light-grey">
-        <div class="w3-content" style="max-width: 1000px;">
-            <a href="{{ url_for('index') }}" class="w3-bar-item w3-button w3-large">Q&A</a>
+        <p><label>Expert</label></p>
+        <select class="w3-select w3-border w3-margin-bottom" name="expert">
+            <option value="" disabled selected>Choose your expert</option>
+            {% for expert in experts %}
+            <option value="{{ expert['id'] }}">{{ expert['username'] }}</option>
+            {% endfor %}
+        </select>
 
-            <!-- User is logged in -->
-            {% if user %}
-            
-            <!-- If user is not admin and expert -->
-            {% if not user['admin'] and not user['expert'] %}
-            
-            <a href="{{ url_for('ask') }}" class="w3-bar-item w3-button w3-large">Ask question</a>
-            
-            {% else %}
+        <button class="w3-btn w3-dark-gray">Submit</button>
+    </form>
+</div>
 
-            <!-- If user is expert -->
-            {% if user['expert'] %}
-            <a href="{{ url_for('unanswered') }}" class="w3-bar-item w3-button w3-large">Answer questions</a>
-            {% endif %}
-            <!-- If user is admin -->
-            {% if user['admin'] %}
-            <a href="{{ url_for('users') }}" class="w3-bar-item w3-button w3-large">User setup</a>
-            {% endif %}
-
-            {% endif %}
-
-            <a href="{{ url_for('logout') }}" class="w3-bar-item w3-button w3-large w3-right">Logout</a>
-
-            <!-- User not logged in -->
-            {% else %}
-            <a href="{{ url_for('login') }}" class="w3-bar-item w3-button w3-large w3-right">Login</a>
-            <a href="{{ url_for('register') }}" class="w3-bar-item w3-button w3-large w3-right">Register</a>
-            
-            {% endif %}
-        </div>
-    </div>
-
-    <!-- Page content -->
-    <div id="page-content" class="w3-content" style="margin-top: 60px; max-width: 900px;">
-
-        <div class="w3-border-bottom">
-            <h1>Ask A Question</h1>
-        </div>
-        <br>
-        <div class="w3-card-4 w3-padding w3-margin-bottom w3-light-gray">
-            <form>
-                <p><label>Question</label></p>
-                <textarea class="w3-input w3-border" rows="4" name="comment" form="usrform"
-                    style="width: 100%;"></textarea>
-
-                <p><label>Expert</label></p>
-                <select class="w3-select w3-border w3-margin-bottom" name="option">
-                    <option value="" disabled selected>Choose your expert</option>
-                    <option value="1">Expert 1</option>
-                    <option value="2">Expert 2</option>
-                    <option value="3">Expert 3</option>
-                </select>
-
-                <button class="w3-btn w3-dark-gray">Submit</button>
-            </form>
-        </div>
-
-    </div>
-
-
-</body>
-
-</html>
+{% endblock %}
