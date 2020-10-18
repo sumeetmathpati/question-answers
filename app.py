@@ -1,10 +1,10 @@
 from flask import Flask, render_template, g, request, session, redirect, url_for
 from database import get_db
 from werkzeug.security import generate_password_hash, check_password_hash
-import os
+
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = os.urandom(24)
+app.config['SECRET_KEY'] = b'\xb3h4\xacmR7!F\xa7\xcc\x00\x04Jh b\xd3\xb55\xa2\xf1f\x02'
 
 @app.teardown_appcontext
 def close_db(error):
