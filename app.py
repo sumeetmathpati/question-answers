@@ -130,7 +130,7 @@ def answer(question_id):
     db = get_db()
 
     if request.method == 'POST':
-        db.execute('UPDATE questions SET answer = ? WHERE id = ?', [request.form['answer'], question_id]) 
+        db.execute('UPDATE questions SET answer = %s WHERE id = %s', (request.form['answer'], question_id)) 
         # db.commit()
         return redirect(url_for('unanswered'))
 
@@ -178,7 +178,7 @@ def unanswered():
                                 users.username, 
                                 questions.expert_id 
                                 FROM questions join users ON users.id = questions.asked_by_id 
-                                WHERE questions.answer IS null AND questions.expert_id = ?''', [user['id']])
+                                WHERE questions.answer IS null AND questions.expert_id = %s''', (user['id']))
     questions = db.fetchall()
 
     return render_template('unanswered.html', user=user, questions=questions)
