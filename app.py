@@ -158,7 +158,7 @@ def ask():
     db.execute('SELECT id, username FROM users where expert = true')
     expert_result = db.fetchall()
 
-    return render_template('ask.html', experts=expert_result)
+    return render_template('ask.html', user=user, experts=expert_result)
 
 @app.route('/unanswered')
 def unanswered():
@@ -178,7 +178,7 @@ def unanswered():
                                 users.username, 
                                 questions.expert_id 
                                 FROM questions join users ON users.id = questions.asked_by_id 
-                                WHERE questions.answer IS null AND questions.expert_id = %s''', (user['id']))
+                                WHERE questions.answer IS null AND questions.expert_id = %s''', (user['id'], ))
     questions = db.fetchall()
 
     return render_template('unanswered.html', user=user, questions=questions)
